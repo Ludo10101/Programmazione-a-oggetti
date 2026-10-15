@@ -1,0 +1,35 @@
+Scenario: Gestione di un Punto Vendita (Negozio & Prodotti)
+Devi modellare il sistema di gestione degli articoli in vendita presso un negozio.
+1. Classe Prodotto
+Rappresenta un singolo articolo nello scaffale.
+    • Attributi privati:
+        ◦ codice (Stringa, es. "P101")
+        ◦ nome (Stringa, es. "Tastiera")
+        ◦ prezzoBase (double, es. 25.0)
+    • Costruttore: Inizializza tutti gli attributi.
+    • Metodi:
+        ◦ Getter/Setter opportuni.
+        ◦ calcolaPrezzoScontato(double percentualeSconto): Ritorna il prezzo scontato in base alla percentuale passata come parametro (es. uno sconto del $20\%$ su $25.0$ deve restituire $20.0$).
+        ◦ applicaSconto(double percentualeSconto): Modifica direttamente lo stato interno del prodotto, aggiornando prezzoBase con il valore scontato (rifletti sull'uso implicito di this).
+2. Classe Scaffale
+Rappresenta un contenitore che contiene una collezione/array di prodotti.
+    • Attributi privati:
+        ◦ categoria (Stringa, es. "Elettronica")
+        ◦ prodotti (Array di oggetti Prodotto[], es. dimensione massima fissa di 5 elementi)
+        ◦ numeroProdotti (int, per tracciare quanti elementi sono stati inseriti finora)
+    • Costruttore: Riceve la categoria e la capacita massima dello scaffale, e inizializza l'array.
+    • Metodi:
+        ◦ aggiungiProdotto(Prodotto p): Inserisce un nuovo prodotto nello scaffale se c'è ancora posto. Restituisce true se l'inserimento ha avuto successo, false se lo scaffale è pieno.
+        ◦ valoreTotale(): Calcola e restituisce la somma dei prezzi base di tutti i prodotti attualmente presenti nello scaffale.
+        ◦ applicaScontoFlotta(double percentuale): Applica la percentuale di sconto a tutti i prodotti presente sullo scaffale (sfruttando il metodo già scritto nella classe Prodotto).
+3. Classe Main (Classe di Test)
+Nel main esegui la seguente sequenza di prova:
+    1. Crea almeno 3 oggetti Prodotto distinti (es. Mouse, Tastiera, Monitor).
+    2. Crea uno Scaffale di categoria "Informatica" con capacità massima di 5 prodotti.
+    3. Aggiungi i 3 prodotti allo scaffale usando aggiungiProdotto.
+    4. Stampa a schermo il valore totale dello scaffale invocando valoreTotale().
+    5. Applica uno sconto del $10\%$ a tutti i prodotti usando applicaScontoFlotta(10.0).
+    6. Ricalcola e stampa a schermo il nuovo valore totale per verificare che lo stato dei singoli prodotti sia cambiato correttamente!
+🎯 Punti su cui concentrare l'attenzione:
+    • Autonomia dei Modelli: Le classi Prodotto e Scaffale non devono contenere alcuna System.out.println per la stampa del report complessivo, ma solo metodi che calcolano e ritornano dati o modificano lo stato. Tutto l'I/O (stampa) avviene nel Main.
+    • Incapsulamento & Delega: Quando lo Scaffale deve scontare tutti i prodotti, non deve modificare direttamente i prezzi, ma deve delegare l'operazione al metodo applicaSconto del singolo Prodotto.
