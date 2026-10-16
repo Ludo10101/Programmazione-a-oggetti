@@ -1,0 +1,54 @@
+public class Studente extends Persona {
+    private String matricola;
+    
+    public Studente(String nome, String cognome, String codiceFiscale, String matricola) {
+        super(nome, cognome, codiceFiscale);
+        this.matricola = matricola;
+    }
+
+    @Override
+    public String toString() {
+        String res = super.toString() + " ma anche studente iscritto a l'università con matricola: " + matricola;
+        return res;
+    }
+    
+    public String getMatricola() {
+        return matricola;
+    }
+    
+    public void setMatricola(String matricola) {
+        this.matricola = matricola;
+    }
+
+    public static void main(String[] args) {
+        Persona p = new Persona("Ludo", "Silve", "ABC123");
+        Persona p1 = new Studente("Adri", "Silve", "ABC123", "123456");
+        Studente s = new Studente("Mamma", "Silve", "ABC123", "123456"); 
+        Persona p2 = s;   
+        
+        System.out.println(p1.getNome()); // Non posso accedere al metodo getMatricola() perché p1 è di tipo Persona, quindi non ha accesso ai metodi della classe Studente
+        System.out.println(p.getNome());  // Posso accedere al metodo getNome()
+        System.out.println(s.getNome() + " " + s.getMatricola()); // Posso accedere al metodo getMatricola() perché s è di tipo Studente
+        System.out.println(p.toString()); // Il toString è quello di Persona
+        System.out.println(s.toString()); // Il toString è quello di Studente
+        System.out.println(p1.toString()); // Verrà eseguito il toString() della classe Studente perché p1 punta a un oggetto di tipo Studente (override)
+        
+        // INSEGNAMENTO: Quello che conta è il tipo dell'oggetto puntato, il metodo che verrà eseguito me lo dirà lui;
+        // il tipo del riferimento (puntatore) mi dice solamente a quali metodi posso accedere, ma non quale metodo verrà eseguito.
+        
+        Persona px;
+        if (Math.random() > 0.5) {
+            px = new Persona("Ludo", "Silve", "ABC123");
+        } else {
+            px = new Studente("Adri", "Silve", "ABC123", "123456");
+        }
+        System.out.println(px.toString()); // Verrà eseguito il toString() di Persona o Studente a seconda dell'oggetto creato a runtime
+        
+        // LATE BINDING & POLIMORFISMO:
+        // Il sistema decide quale metodo eseguire a runtime e non a compile time.
+        // In Java tutti i metodi non statici/final sono virtuali e possono essere sovrascritti dalle classi figlie.
+
+        Studente s1 = (Studente) px; // Se px punta a Persona, lancerà un'eccezione ClassCastException. Se punta a Studente, il cast avrà successo.
+        Studente s2 = (Studente) p1; // Il cast avrà successo perché l'oggetto puntato da p1 è uno Studente.
+    }
+}
