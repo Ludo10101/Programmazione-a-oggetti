@@ -1,53 +1,54 @@
 package esercizio;
 
 
-public class ImmagineVettoriale extends Immagine{
-	private Forma[] vettoreForme;
-	private int numFormeAttuali=0;
-	private int numMaxForme;
-	
-	public ImmagineVettoriale(int numMaxForme) {
-		this.numMaxForme=numMaxForme;
-		vettoreForme=new Forma[numMaxForme];
-	}
-	public void aggiungiForma(Forma frm) {
-		if(numFormeAttuali<numMaxForme) {
-			vettoreForme[numFormeAttuali]=frm;
-			numFormeAttuali++;
-		}
-	}
-	// IL PARAMETRO PASSATO A QUESTA FUNZIONE E' UN COLORE PRIMARIO: RED, GREEN BLUE
+import java.util.ArrayList;
+import java.util.Comparator;
 
+public class ImmagineVettoriale extends Immagine{
+	private ArrayList<Forma> listaForme;
+	
+	public ImmagineVettoriale() {
+		super();
+		ArrayList<Forma> listaForme= new ArrayList<>();
+	}
+	
+	public void aggiungiForma(Forma f) {
+		listaForme.add(f);
+	}
+
+	// IL PARAMETRO PASSATO A QUESTA FUNZIONE E' UN COLORE PRIMARIO: RED, GREEN BLUE
 	public double utilizzoColorePrimario(Color col) {
 		double somma=0;
-		for(int i=0;i<numFormeAttuali;i++) {
-			somma+= vettoreForme[i].getCol().getComponent(col)*vettoreForme[i].area();
+		for(Forma f : listaForme) {
+			somma=somma+f.getCol().getComponent(col)*f.area();
 		}
 		return somma;
+	}       
+		
+	public void stampaImmagine() {
+		for(Forma f : listaForme) {
+			System.out.println(f.getTipo()+ "Area: "+ f.area() + "\nRed: "+f.getCol().getComponent(Color.RED)+
+								"\nGreen: "+f.getCol().getComponent(Color.GREEN)+
+								"\nBlue: " +f.getCol().getComponent(Color.BLUE));
+		}
 	}
 	
-	public Forma[] getVettoreForme() {
-		return vettoreForme;
+	public void ordinamentoArea() {
+		Comparator<Forma> comparaPerArea= new Comparator<Forma>(){
+			@Override
+			public int compare(Forma i, Forma j) {
+				return (int)(i.area()-j.area());
+			}
+		};
+		listaForme.sort(comparaPerArea);
+	}
+	
+	public ArrayList<Forma> getListaForme() {
+		return listaForme;
 	}
 
-	public void setVettoreForme(Forma[] vettoreForme) {
-		this.vettoreForme = vettoreForme;
+	public void setListaForme(ArrayList<Forma> listaForme) {
+		this.listaForme = listaForme;
 	}
-
-	public int getNumFormeAttuali() {
-		return numFormeAttuali;
-	}
-
-	public void setNumFormeAttuali(int numFormeAttuali) {
-		this.numFormeAttuali = numFormeAttuali;
-	}
-
-	public int getNumMaxForme() {
-		return numMaxForme;
-	}
-
-	public void setNumMaxForme(int numMaxForme) {
-		this.numMaxForme = numMaxForme;
-	}
-
+	
 }

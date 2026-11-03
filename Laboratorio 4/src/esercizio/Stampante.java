@@ -2,27 +2,21 @@ package esercizio;
 
 
 public class Stampante {
-	private int numeroMaxImmagini;
-	private int numeroImmaginiAttuale=0;
-	private Immagine[] vettoreImmagini;
+	private Stampabile s;
 	private Cartuccia[] vettoreCartucce;
 	
-	public Stampante(int numeroMaxImmagini, double colR, double colG, double colB ) {
-		this.numeroMaxImmagini=numeroMaxImmagini;
+	public Stampante(Stampabile s, double[] liv ) {
+		this.s=s;
 		vettoreCartucce=new Cartuccia[3];
-		vettoreImmagini=new Immagine[numeroMaxImmagini];
-		inizializzaCartucce(colR,colG,colB);
+		if(liv.length!=3) throw new IllegalArgumentException("Inserire un vettore double di dimensione 3.");
+		inizializzaCartucce(liv);
 	}
-	public void aggiungiImmagine(Immagine img) {
-		if(numeroImmaginiAttuale<numeroMaxImmagini) {
-			vettoreImmagini[numeroImmaginiAttuale]=img;
-			numeroImmaginiAttuale++;
+
+	public void inizializzaCartucce(double[] liv ) {
+		if(liv.length!=3) throw new IllegalArgumentException("Inserire un vettore double di dimensione 3.");
+		for(Color col: Color.values()) {
+			vettoreCartucce[col.ordinal()]=new Cartuccia(liv[col.ordinal()], col);
 		}
-	}
-	public void inizializzaCartucce(double colR, double colG, double colB ) {
-		vettoreCartucce[Color.RED.ordinal()]= new Cartuccia(colR, Color.RED);
-		vettoreCartucce[Color.GREEN.ordinal()]= new Cartuccia(colG, Color.GREEN);
-		vettoreCartucce[Color.BLUE.ordinal()]=new Cartuccia(colB, Color.BLUE);
 	}
 	
 	public void fornireLivelloCartucce() {
@@ -34,55 +28,22 @@ public class Stampante {
 	}
 	
 	public void stampaImmagine() {
-		for(int i=0;i<numeroImmaginiAttuale;i++) {
-			// solo se sono sufficienti tutti e 3 i colori stampo altrimenti no
-			if((vettoreCartucce[Color.RED.ordinal()].getLivello()>= vettoreImmagini[i].utilizzoColorePrimario(Color.RED))&&
-				(vettoreCartucce[Color.GREEN.ordinal()].getLivello()>= vettoreImmagini[i].utilizzoColorePrimario(Color.GREEN))&&
-				(vettoreCartucce[Color.BLUE.ordinal()].getLivello()>= vettoreImmagini[i].utilizzoColorePrimario(Color.BLUE))) {
-				
-				vettoreCartucce[Color.RED.ordinal()].setLivello(vettoreCartucce[Color.RED.ordinal()].getLivello() - vettoreImmagini[i].utilizzoColorePrimario(Color.RED));
-				vettoreCartucce[Color.GREEN.ordinal()].setLivello(vettoreCartucce[Color.GREEN.ordinal()].getLivello() - vettoreImmagini[i].utilizzoColorePrimario(Color.GREEN));
-				vettoreCartucce[Color.BLUE.ordinal()].setLivello(vettoreCartucce[Color.BLUE.ordinal()].getLivello() - vettoreImmagini[i].utilizzoColorePrimario(Color.BLUE));
-				}
-			else {
-				System.out.println("Ricaricare il livello delle cartucce");
+		for(Color col : Color.values()) {
+			if(vettoreCartucce[col.ordinal()].getLivello()< s.utilizzoColorePrimario(col)) {
+				throw new IllegalArgumentException("L'oggetto stampabile consuma troppo colore rispetto a quello che contiene la stampante.");
 			}
+			vettoreCartucce[col.ordinal()].setLivello(vettoreCartucce[col.ordinal()].getLivello()-s.utilizzoColorePrimario(col)); 
 		}
-		// DOPO AVER STAMPATO (ANCHE SE CI SONO STATE STAMPE FALLIMENTARI) RESETTO IL CONTATORE DELLE IMMAGINI ATTUALI
-		numeroImmaginiAttuale=0;
 	}
 	public void sostituzioneCartuccia(Color col, double quantita) {
 		vettoreCartucce[col.ordinal()].setLivello(quantita);
 	}
-	public int getNumeroMaxImmagini() {
-		return numeroMaxImmagini;
+	public Stampabile getStampabile() {
+		return s;
 	}
-
-
-	public void setNumeroMaxImmagini(int numeroMaxImmagini) {
-		this.numeroMaxImmagini = numeroMaxImmagini;
+	public void setStampabile(Stampabile s) {
+		this.s=s;
 	}
-
-
-	public int getNumeroImmaginiAttuale() {
-		return numeroImmaginiAttuale;
-	}
-
-
-	public void setNumeroImmaginiAttuale(int numeroImmaginiAttuale) {
-		this.numeroImmaginiAttuale = numeroImmaginiAttuale;
-	}
-
-
-	public Immagine[] getVettoreImmagini() {
-		return vettoreImmagini;
-	}
-
-
-	public void setVettoreImmagini(Immagine[] vettoreImmagini) {
-		this.vettoreImmagini = vettoreImmagini;
-	}
-
 
 	public Cartuccia[] getVettoreCartucce() {
 		return vettoreCartucce;
@@ -97,7 +58,7 @@ public class Stampante {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-
+		// RICORDA DI METTERE IL TRY CATCH 
 	}
 
 }

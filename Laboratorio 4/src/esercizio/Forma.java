@@ -8,6 +8,8 @@ public abstract class Forma {
 		this.col=col;
 	}
 
+	public abstract String getTipo();
+
 	public ColorRGB getCol() {
 		return col;
 	}
