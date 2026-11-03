@@ -26,77 +26,66 @@ public class Stampante {
 	
 	public void fornireLivelloCartucce() {
 		System.out.println("Il livello delle cartucce è il seguente:");
-		System.out.println("Rosso: "+vettoreCartucce[Color.RED.ordinal()].getLivello()+ "\nVerde: "+vettoreCartucce[Color.GREEN.ordinal()].getLivello()+"\nBlu: "+vettoreCartucce[Color.BLUE.ordinal()].getLivello() );
+		System.out.println("Rosso: "+vettoreCartucce[Color.RED.ordinal()].getLivello()+ 
+						   "\nVerde: "+vettoreCartucce[Color.GREEN.ordinal()].getLivello()+
+						   "\nBlu: "+vettoreCartucce[Color.BLUE.ordinal()].getLivello() );
 	}
 	public double quantoInchiostro(Color col) {
 		return vettoreCartucce[col.ordinal()].getLivello();
 	}
-	
 	public void stampaImmagine() {
 		for(int i=0;i<numeroImmaginiAttuale;i++) {
 			// solo se sono sufficienti tutti e 3 i colori stampo altrimenti no
-			if((vettoreCartucce[Color.RED.ordinal()].getLivello()>= vettoreImmagini[i].utilizzoColorePrimario(Color.RED))&&
-				(vettoreCartucce[Color.GREEN.ordinal()].getLivello()>= vettoreImmagini[i].utilizzoColorePrimario(Color.GREEN))&&
-				(vettoreCartucce[Color.BLUE.ordinal()].getLivello()>= vettoreImmagini[i].utilizzoColorePrimario(Color.BLUE))) {
-				
-				vettoreCartucce[Color.RED.ordinal()].setLivello(vettoreCartucce[Color.RED.ordinal()].getLivello() - vettoreImmagini[i].utilizzoColorePrimario(Color.RED));
-				vettoreCartucce[Color.GREEN.ordinal()].setLivello(vettoreCartucce[Color.GREEN.ordinal()].getLivello() - vettoreImmagini[i].utilizzoColorePrimario(Color.GREEN));
-				vettoreCartucce[Color.BLUE.ordinal()].setLivello(vettoreCartucce[Color.BLUE.ordinal()].getLivello() - vettoreImmagini[i].utilizzoColorePrimario(Color.BLUE));
+			boolean flag= true;
+			for(Color c : Color.values()) {
+				if(vettoreCartucce[c.ordinal()].getLivello()<vettoreImmagini[i].utilizzoColorePrimario(c)){
+					flag=false;
+					break;
 				}
-			else {
+			}
+			if(flag) {
+				for(Color c: Color.values()) {
+					vettoreCartucce[c.ordinal()].setLivello(vettoreCartucce[c.ordinal()].getLivello() - vettoreImmagini[i].utilizzoColorePrimario(c));
+				}
+			}else {
 				System.out.println("Ricaricare il livello delle cartucce");
+				numeroImmaginiAttuale=0;
+				return;
 			}
 		}
 		// DOPO AVER STAMPATO (ANCHE SE CI SONO STATE STAMPE FALLIMENTARI) RESETTO IL CONTATORE DELLE IMMAGINI ATTUALI
 		numeroImmaginiAttuale=0;
 	}
+
 	public void sostituzioneCartuccia(Color col, double quantita) {
 		vettoreCartucce[col.ordinal()].setLivello(quantita);
 	}
+	
 	public int getNumeroMaxImmagini() {
 		return numeroMaxImmagini;
 	}
-
-
 	public void setNumeroMaxImmagini(int numeroMaxImmagini) {
 		this.numeroMaxImmagini = numeroMaxImmagini;
 	}
-
-
 	public int getNumeroImmaginiAttuale() {
 		return numeroImmaginiAttuale;
 	}
-
-
 	public void setNumeroImmaginiAttuale(int numeroImmaginiAttuale) {
 		this.numeroImmaginiAttuale = numeroImmaginiAttuale;
 	}
-
-
 	public Immagine[] getVettoreImmagini() {
 		return vettoreImmagini;
 	}
-
-
 	public void setVettoreImmagini(Immagine[] vettoreImmagini) {
 		this.vettoreImmagini = vettoreImmagini;
 	}
-
-
 	public Cartuccia[] getVettoreCartucce() {
 		return vettoreCartucce;
 	}
-
-
 	public void setVettoreCartucce(Cartuccia[] vettoreCartucce) {
 		this.vettoreCartucce = vettoreCartucce;
 	}
-
-
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
-
 	}
-
 }
