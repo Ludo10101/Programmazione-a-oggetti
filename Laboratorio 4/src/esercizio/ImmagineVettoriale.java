@@ -9,7 +9,7 @@ public class ImmagineVettoriale extends Immagine{
 	
 	public ImmagineVettoriale() {
 		super();
-		ArrayList<Forma> listaForme= new ArrayList<>();
+		listaForme= new ArrayList<>();
 	}
 	
 	public void aggiungiForma(Forma f) {
@@ -37,7 +37,7 @@ public class ImmagineVettoriale extends Immagine{
 		Comparator<Forma> comparaPerArea= new Comparator<Forma>(){
 			@Override
 			public int compare(Forma i, Forma j) {
-				return (int)(i.area()-j.area());
+				return Double.compare(i.area(),j.area());
 			}
 		};
 		listaForme.sort(comparaPerArea);

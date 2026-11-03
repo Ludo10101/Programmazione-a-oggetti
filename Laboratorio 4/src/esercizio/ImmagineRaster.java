@@ -32,10 +32,10 @@ public class ImmagineRaster extends Immagine{
 				sommaBlu+= matricePixel[i][j].getColore().getComponent(Color.BLUE)*matricePixel[i][j].getAreaPixel();
 			}
 		}
-		double areaTotale=(maxi+1)*(maxj+1)*matricePixel[0][0].getAreaPixel();
-		System.out.println("Percentuale Rosso: " + sommaRosso/areaTotale+
-						 "\nPercentuale Verde: " +sommaVerde/areaTotale+
-						 "\nPercentuale Blu: " +sommaBlu/areaTotale );
+		double areaTotale=sommaRosso+sommaVerde+sommaBlu;
+		System.out.println("Percentuale Rosso: " + sommaRosso/areaTotale*100+"%"+
+						 "\nPercentuale Verde: " +sommaVerde/areaTotale*100+"%"+
+						 "\nPercentuale Blu: " +sommaBlu/areaTotale*100+"%" );
 		
 	}
 	public Pixel[][] getMatricePixel() {
