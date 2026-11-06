@@ -2,7 +2,7 @@ package esercizio;
 
 
 public class Stampante {
-	private Stampabile s;
+	private Stampabile s; // NON METTERLO COME DATO INTERNO MA COME PARAMETRO PASSATO
 	private Cartuccia[] vettoreCartucce;
 	
 	public Stampante(Stampabile s, double[] liv ) {
@@ -27,7 +27,7 @@ public class Stampante {
 		return vettoreCartucce[col.ordinal()].getLivello();
 	}
 	
-	public void stampaImmagine() {
+	public void stampaImmagine() { // PRENDI COME ARGOMENTO UN OGGETTO STAMPABILE
 		for(Color col : Color.values()) {
 			if(vettoreCartucce[col.ordinal()].getLivello()< s.utilizzoColorePrimario(col)) {
 				throw new IllegalArgumentException("L'oggetto stampabile consuma troppo colore rispetto a quello che contiene la stampante.");
