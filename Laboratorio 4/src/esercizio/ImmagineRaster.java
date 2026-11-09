@@ -4,10 +4,12 @@ public class ImmagineRaster extends Immagine{
 	private Pixel[][] matricePixel;
 	private int maxi;
 	private int maxj;
+	private double coeffProp;
 	
-	public ImmagineRaster(int maxi, int maxj) {
+	public ImmagineRaster(int maxi, int maxj ,double coeffProp) {
 		this.maxi=maxi;
 		this.maxj=maxj;
+		this.coeffProp=coeffProp;
 		matricePixel=new Pixel[maxi][maxj];
 	}
 
@@ -15,10 +17,10 @@ public class ImmagineRaster extends Immagine{
 		double somma=0;
 		for(int i=0;i<maxi;i++) {
 			for(int j=0;j<maxj;j++) {
-				somma=somma+matricePixel[i][j].getColore().getComponent(col);
+				somma=somma+matricePixel[i][j].getColore().getComponent(col)*matricePixel[i][j].getAreaPixel();
 			}
 		}
-		return somma;
+		return somma*coeffProp;
 	}
 	
 	public void stampaImmagine() {
@@ -38,6 +40,8 @@ public class ImmagineRaster extends Immagine{
 						 "\nPercentuale Blu: " +sommaBlu/areaTotale*100+"%" );
 		
 	}
+	
+
 	public Pixel[][] getMatricePixel() {
 		return matricePixel;
 	}
@@ -62,6 +66,12 @@ public class ImmagineRaster extends Immagine{
 		this.maxj = maxj;
 	}
 	
-	
+	public double getCoeffProp() {
+		return coeffProp;
+	}
+
+	public void setCoeffProp(double coeffProp) {
+		this.coeffProp = coeffProp;
+	}
 
 }

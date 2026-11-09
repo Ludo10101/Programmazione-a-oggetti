@@ -1,5 +1,7 @@
 package esercizio;
 
+import forme.Rettangolo;
+import forme.Quadrato;
 
 public class Stampante {
 	private Stampabile s;
@@ -30,10 +32,11 @@ public class Stampante {
 	public void stampaImmagine() {
 		for(Color col : Color.values()) {
 			if(vettoreCartucce[col.ordinal()].getLivello()< s.utilizzoColorePrimario(col)) {
-				throw new IllegalArgumentException("L'oggetto stampabile consuma troppo colore rispetto a quello che contiene la stampante.");
+				throw new ColoreInsufficenteException(col,s.utilizzoColorePrimario(col),vettoreCartucce[col.ordinal()].getLivello());
 			}
 			vettoreCartucce[col.ordinal()].setLivello(vettoreCartucce[col.ordinal()].getLivello()-s.utilizzoColorePrimario(col)); 
 		}
+
 	}
 	public void sostituzioneCartuccia(Color col, double quantita) {
 		vettoreCartucce[col.ordinal()].setLivello(quantita);
@@ -57,8 +60,32 @@ public class Stampante {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+		try {
+			ImmagineVettoriale immagine1=new ImmagineVettoriale(2);
+			ColorRGB colore1=new ColorRGB(24,25,26);
+			Rettangolo rett1=new Rettangolo(colore1, 4, 5);
+			immagine1.aggiungiForma(rett1);
+			ColorRGB colore2=new ColorRGB(25,26,27);
+			Quadrato quadrato1=new Quadrato(colore2,2);
+			immagine1.aggiungiForma(quadrato1);
+			
+			
+			double[] livelliIniziali= {1200,1300,1300};
+			Stampante stamp=new Stampante(immagine1,livelliIniziali);
+			
+			stamp.fornireLivelloCartucce();
+			stamp.stampaImmagine();
+			stamp.fornireLivelloCartucce();
+			
+			immagine1.stampaImmagine();
+			immagine1.percentualeColoriPrimari();
+		}catch(ColoreInsufficenteException e) {
+			System.out.println("Inserisci altro colore\n");
+		}catch(IllegalArgumentException e) {
+			System.out.println("Inserisci un Vettore di double di 3 elementi\n");
+		}
 		// RICORDA DI METTERE IL TRY CATCH 
+		
 	}
 
 }
