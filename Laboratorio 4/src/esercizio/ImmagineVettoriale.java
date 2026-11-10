@@ -52,6 +52,7 @@ public class ImmagineVettoriale extends Immagine{
 			double utilizzoBlu=utilizzoColorePrimario(Color.BLUE);
 			double totale=utilizzoRosso+ utilizzoVerde+ utilizzoBlu;
 			System.out.printf("[ROSSO]: %.02f %%\n[BLU]: %.02f %%\n[VERDE]: %.02f %%\n",utilizzoRosso/totale*100,utilizzoVerde/totale*100,utilizzoBlu/totale*100);
+			
 	}
 	
 	public ArrayList<Forma> getListaForme() {

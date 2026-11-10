@@ -81,6 +81,7 @@ public class Stampante {
 			immagine1.percentualeColoriPrimari();
 		}catch(ColoreInsufficenteException e) {
 			System.out.println("Inserisci altro colore\n");
+			
 		}catch(IllegalArgumentException e) {
 			System.out.println("Inserisci un Vettore di double di 3 elementi\n");
 		}
