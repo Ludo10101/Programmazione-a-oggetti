@@ -8,7 +8,7 @@ public class CredenzialiSbagliateException extends RuntimeException{
 	}
 	
 	public CredenzialiSbagliateException() {
-		System.out.println("Username o Password Errati.\n");
+		super("Username o Password Errati.\n");
 	}
 	
 	

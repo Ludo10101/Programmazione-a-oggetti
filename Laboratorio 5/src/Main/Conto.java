@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import eccezioni.NoAbbastanzaSoldiException;
 public abstract class Conto {
 	
-	private String iban;
-	private Persona per;
-	private double saldo=0;
+	protected String iban;
+	protected Persona per;
+	protected double saldo=0;
 	private ArrayList<Accountable> arrayAccount;
 	
 	public Conto(String iban, Persona per, ArrayList<Accountable> arrayAccount) {
@@ -16,14 +16,10 @@ public abstract class Conto {
 		this.arrayAccount=arrayAccount;
 	}
 
-	public double richiediSaldo() {
-		return saldo;
-	}
-	
 	public void aggiungiAccountable(Accountable acnt) {
 		arrayAccount.add(acnt);
 	}
-	public void rimuoviAccount(int index) {
+	public void rimuoviAccountable(int index) {
 		arrayAccount.remove(index);
 	}
 	
@@ -45,16 +41,7 @@ public abstract class Conto {
 	
 	public abstract void operazione(String causale, double importo) throws NoAbbastanzaSoldiException;
 	
-	public boolean preleva(double val) {
-		saldo=saldo-val;
-		if(val<=0|| saldo-val<0) return false;
-		else return true;
-	}
-	public boolean deposita(double val) {
-		saldo=saldo+val;
-		if(val<=0) return false;
-		else return true;
-	}
+	
 	public String getIban() {
 		return iban;
 	}

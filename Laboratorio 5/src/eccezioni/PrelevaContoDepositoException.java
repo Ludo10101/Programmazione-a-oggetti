@@ -9,7 +9,7 @@ public class PrelevaContoDepositoException extends RuntimeException {
 	}
 	
 	public PrelevaContoDepositoException() {
-		System.out.println("Non si può prelevare da un conto deposito.\n");
+		super("Non si può prelevare da un conto deposito.\n");
 	}
 	
 }

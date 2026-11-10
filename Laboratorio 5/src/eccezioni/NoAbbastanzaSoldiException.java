@@ -9,6 +9,6 @@ public class NoAbbastanzaSoldiException extends RuntimeException{
 	}
 
 	public NoAbbastanzaSoldiException(String causa, double soldiRichiesti, double soldiAttuali) {
-		System.out.println("L'account: "+ causa+ " richiede: "+ soldiRichiesti+ " ma sono disponibili solo: "+soldiAttuali);
+		super("L'account: "+ causa+ " richiede: "+ soldiRichiesti+ " ma sono disponibili solo: "+soldiAttuali);
 	}
 }

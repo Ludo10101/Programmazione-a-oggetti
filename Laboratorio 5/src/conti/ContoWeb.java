@@ -56,6 +56,38 @@ public class ContoWeb extends Conto{
 		super.setSaldo(super.getSaldo()+soldi);
 		System.out.println("[Username]: "+username+ "\n[Causale]: "+ causale+ "\n[Importo operazione]: "+ soldi+ "\n[Saldo attuale]: "+super.getSaldo());
 	}
+	
+	// ORA FACCIO L'OVERRIDE DEI METODI DI CONTO PERCHE' NON DEVONO ESSERE ACCESSIBILI NEANCHE QUELLI SE NON SI È LOGGATI O SE NON SI È CAMBIATI LA PASSWORD DI DEFAULT
+	
+	@Override
+	public void aggiungiAccountable(Accountable acnt) {
+		if(!loggedIn) throw new NoLoggatoException();
+		if(!passwordCambiata) throw new PasswordVecchiaException();
+		super.aggiungiAccountable(acnt);
+	}
+	
+	@Override
+	public void rimuoviAccountable(int index) {
+		if(!loggedIn) throw new NoLoggatoException();
+		if(!passwordCambiata) throw new PasswordVecchiaException();
+		super.rimuoviAccountable(index);
+	}
+	
+	@Override
+	public void stampaDettagli() {
+		if(!loggedIn) throw new NoLoggatoException();
+		if(!passwordCambiata) throw new PasswordVecchiaException();
+		super.stampaDettagli();
+	}
+	
+	@Override
+	public void fineMese() {
+		if(!loggedIn) throw new NoLoggatoException();
+		if(!passwordCambiata) throw new PasswordVecchiaException();
+		super.fineMese();
+	}
+	
+	
 	public String getUsername() {
 		if(!loggedIn) throw new NoLoggatoException();
 		if(!passwordCambiata) throw new PasswordVecchiaException();
@@ -73,6 +105,7 @@ public class ContoWeb extends Conto{
 	public void setPassword(String password) {
 		if(!loggedIn) throw new NoLoggatoException();
 		this.password = password;
+		passwordCambiata=true;
 	}
 	public boolean isLoggedIn() {
 		return loggedIn;

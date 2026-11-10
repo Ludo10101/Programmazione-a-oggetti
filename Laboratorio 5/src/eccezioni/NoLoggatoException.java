@@ -8,7 +8,7 @@ public class NoLoggatoException extends RuntimeException{
 	}
 	
 	public NoLoggatoException() {
-		System.out.println("Prima di fare questa operazione hai bisogno di accedere\n.");
+		super("Prima di fare questa operazione hai bisogno di accedere\n.");
 	}
 
 }

@@ -6,7 +6,7 @@ public class PasswordVecchiaException extends RuntimeException{
 		super(msg);
 	}
 	public PasswordVecchiaException() {
-		System.out.println("Non puoi eseguire operazioni finchè non cambi la password\n");
+		super("Non puoi eseguire operazioni finchè non cambi la password\n");
 	}
 
 }
