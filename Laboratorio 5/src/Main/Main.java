@@ -29,8 +29,8 @@ public class Main {
 		bancaNovara.getArrayConti().get(0).fineMese();
 		System.out.println(bancaNovara.getArrayConti().get(0).getSaldo());
 		bancaNovara.getArrayConti().get(0).operazione("Tassa",-19980.0);
-		try {
-			bancaNovara.getArrayConti().get(0).fineMese();
+		try { 
+			bancaNovara.getArrayConti().get(0).fineMese(); //PRELEVO TROPPI SOLDI
 		}catch(NoAbbastanzaSoldiException e) {
 			System.out.println("[ERRORE]:\n"+e.getMessage());
 		}
@@ -41,7 +41,7 @@ public class Main {
 		
 		//FACCIO OPERAZIONI CON CONTO DEPOSITO(Operazione non valida)
 		try {
-			bancaNovara.getArrayConti().get(1).operazione("OperazioneNonValida", -200);
+			bancaNovara.getArrayConti().get(1).operazione("OperazioneNonValida", -200); // PRELEVO DA UN CONTO DEPOSITO
 		}catch(PrelevaContoDepositoException e) {
 			System.out.println("[ERRORE]:\n"+e.getMessage());
 		}
@@ -50,12 +50,12 @@ public class Main {
 		cnt.logIn("UsrWeb","ChangeMe");
 		try {
 			cnt.operazione("Stipendio", 20);
-		}catch(PasswordVecchiaException e) {
+		}catch(PasswordVecchiaException e) {			// ESEGUO UN'OPERAZIONE SENZA CAMBIARE LA PASSWORD
 			System.out.println("[ERRORE]:\n"+e.getMessage());
 		}
 		try{
 			cnt.cambiaPassword( "ChangeMe", "NuovaPass123");
-		}catch(CredenzialiSbagliateException e) {
+		}catch(CredenzialiSbagliateException e) {					// SBAGLIO LE CREDENZIALI PER IL LOG IN 
 			System.out.println("[ERRORE]:\n"+e.getMessage());
 		}
 		cnt.operazione("Stipendio", 21000);
