@@ -28,8 +28,8 @@ public class Banca {
 		Conto cnt=new ContoDeposito(generaIban(per),per, accounts);
 		arrayConti.add(cnt);
 	}
-	public void aggiungiContoWeb(Persona per, ArrayList<Accountable> accounts, String username) {
-		Conto cnt=new ContoWeb(generaIban(per),per, accounts,username);
+	public void aggiungiContoWeb(Persona per, ArrayList<Accountable> accounts) {
+		Conto cnt=new ContoWeb(generaIban(per),per, accounts);
 		arrayConti.add(cnt);
 	}
 	public void eliminaConto(int indice) {

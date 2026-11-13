@@ -12,19 +12,16 @@ import eccezioni.CredenzialiSbagliateException;
 
 public class ContoWeb extends Conto{
 	
-	private String username;
-	private String password;
 	private boolean loggedIn;
 	private boolean passwordCambiata;
 	
 
-	public ContoWeb(String iban, Persona per, ArrayList<Accountable> arrayAccount, String username) {
+	public ContoWeb(String iban, Persona per, ArrayList<Accountable> arrayAccount) {
 		super(iban, per, arrayAccount);
-		this.username=username;
-		password="ChangeMe";
+		per.setPassword("ChangeMe");
 	}
 	public void logIn(String username, String password) {
-		if(!(this.username.equals(username) && this.password.equals(password))) {
+		if(!(per.getUsername().equals(username) && per.getPassword().equals(password))) {
 			loggedIn=false;
 			throw new CredenzialiSbagliateException();	
 		}
@@ -37,14 +34,14 @@ public class ContoWeb extends Conto{
 	}
 	
 	public void passwordAggiornata() {
-		if(password.equals("ChangeMe")) passwordCambiata=false;
+		if(per.getPassword().equals("ChangeMe")) passwordCambiata=false;
 		else passwordCambiata=true;
 	}
 	
 	public void cambiaPassword(String passAttualeInserita, String nuovaPass) {
 		if(!loggedIn) throw new NoLoggatoException();
-		if(!passAttualeInserita.equals(password)) throw new CredenzialiSbagliateException();
-		password=nuovaPass;
+		if(!passAttualeInserita.equals(per.getPassword())) throw new CredenzialiSbagliateException();
+		per.setPassword(nuovaPass);
 		passwordAggiornata();
 	}
 	
@@ -54,7 +51,7 @@ public class ContoWeb extends Conto{
 		if(!passwordCambiata) throw new PasswordVecchiaException();
 		if(super.getSaldo()<-soldi) throw new NoAbbastanzaSoldiException(causale, soldi, super.getSaldo());
 		super.setSaldo(super.getSaldo()+soldi);
-		System.out.println("[Username]: "+username+ "\n[Causale]: "+ causale+ "\n[Importo operazione]: "+ soldi+ "\n[Saldo attuale]: "+super.getSaldo());
+		System.out.println("[Username]: "+per.getUsername()+ "\n[Causale]: "+ causale+ "\n[Importo operazione]: "+ soldi+ "\n[Saldo attuale]: "+super.getSaldo());
 	}
 	
 	// ORA FACCIO L'OVERRIDE DEI METODI DI CONTO PERCHE' NON DEVONO ESSERE ACCESSIBILI NEANCHE QUELLI SE NON SI È LOGGATI O SE NON SI È CAMBIATI LA PASSWORD DI DEFAULT
@@ -87,26 +84,6 @@ public class ContoWeb extends Conto{
 		super.fineMese();
 	}
 	
-	
-	public String getUsername() {
-		if(!loggedIn) throw new NoLoggatoException();
-		if(!passwordCambiata) throw new PasswordVecchiaException();
-		return username;
-	}
-	public void setUsername(String username) {
-		if(!loggedIn) throw new NoLoggatoException();
-		if(!passwordCambiata) throw new PasswordVecchiaException();
-		this.username = username;
-	}
-	public String getPassword() {
-		if(!loggedIn) throw new NoLoggatoException();
-		return password;
-	}
-	public void setPassword(String password) {
-		if(!loggedIn) throw new NoLoggatoException();
-		this.password = password;
-		passwordCambiata=true;
-	}
 	public boolean isLoggedIn() {
 		return loggedIn;
 	}

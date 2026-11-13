@@ -15,13 +15,13 @@ public class Main {
 		Banca bancaNovara=new Banca("Banca di Novara","BN",new ArrayList<Conto>());
 		
 		// INSERISCO 3 PERSONE NEL SISTEMA DELLA BANCA ASSOCIANDOGLI CONTO CORRENTE, DEPOSITO E WEB
-		Persona per0=new Persona("Corrente", "cor","COR123");
-		Persona per1=new Persona("Deposito", "dep","DEP123");
-		Persona per2=new Persona("Web", "web","WEB123");
+		Persona per0=new Persona("Corrente", "cor","COR123", "Cor01");
+		Persona per1=new Persona("Deposito", "dep","DEP123","Deop01");
+		Persona per2=new Persona("Web", "web","WEB123","Web01");
 		
 		bancaNovara.aggiungiContoCorrente(per0, new ArrayList<Accountable>());
 		bancaNovara.aggiungiContoDeposito(per1, new ArrayList<Accountable>());
-		bancaNovara.aggiungiContoWeb(per2, new ArrayList<Accountable>(),"UsrWeb");
+		bancaNovara.aggiungiContoWeb(per2, new ArrayList<Accountable>());
 		
 		// FACCIO OPERAZIONI CON CONTO CORRENTE(Aggiungere accountable, arrivare a fine mese, rimuovere accountable, arrivare a fine mese, fare operazioni)
 		bancaNovara.getArrayConti().get(0).operazione("Stipendio",20000.0);
@@ -59,7 +59,7 @@ public class Main {
 			System.out.println("[ERRORE]:\n"+e.getMessage());
 		}
 		cnt.operazione("Stipendio", 21000);
-		System.out.println("Password: "+cnt.getPassword());
+		System.out.println("Password: "+cnt.getPer().getPassword());
 		bancaNovara.getArrayConti().get(2).operazione("Ciao", -2000);
 		cnt.logOut();
 		try {
