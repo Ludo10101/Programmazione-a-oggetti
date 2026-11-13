@@ -40,6 +40,9 @@ public class ColoreInsufficenteException extends RuntimeException{
 	}
 	
 	public ColoreInsufficenteException(Color col,  double richiesto,double attuale) {
+		this.col=col;
+		this.richiesto=richiesto;
+		this.attuale=attuale;
 		System.out.println("[ERRORE]:\nLa quantità di "+col.name()+ " richiesta: "+ richiesto +" è troppa, la quantità disponibile è: "+ attuale);
 	}
 }

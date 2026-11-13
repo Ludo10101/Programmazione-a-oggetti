@@ -9,6 +9,12 @@ public class Cartuccia {
 		this.colore=colore;
 	}
 
+	public void consumoLivello(double consumo){
+		if(livello<consumo) throw new ColoreInsufficenteException(colore,consumo,livello);
+		livello=livello-consumo;
+
+	}
+
 	public double getLivello() {
 		return livello;
 	}

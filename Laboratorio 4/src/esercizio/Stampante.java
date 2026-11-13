@@ -1,6 +1,9 @@
 package esercizio;
 
 import forme.Rettangolo;
+
+import java.util.Scanner;
+
 import forme.Quadrato;
 
 public class Stampante {
@@ -31,10 +34,16 @@ public class Stampante {
 	
 	public void stampaImmagine() {
 		for(Color col : Color.values()) {
-			if(vettoreCartucce[col.ordinal()].getLivello()< s.utilizzoColorePrimario(col)) {
-				throw new ColoreInsufficenteException(col,s.utilizzoColorePrimario(col),vettoreCartucce[col.ordinal()].getLivello());
+			try{
+				vettoreCartucce[col.ordinal()].consumoLivello(s.utilizzoColorePrimario(col));
+			}catch(ColoreInsufficenteException e){
+				Scanner scanner=new Scanner(System.in);
+				System.out.println("Inserisci la quantità di colore con cui ricarichi la cartuccia " +col.name());
+				double valore=scanner.nextDouble();
+				sostituzioneCartuccia(col,valore );
+				scanner.close();
+				vettoreCartucce[col.ordinal()].consumoLivello(s.utilizzoColorePrimario(col));
 			}
-			vettoreCartucce[col.ordinal()].setLivello(vettoreCartucce[col.ordinal()].getLivello()-s.utilizzoColorePrimario(col)); 
 		}
 
 	}
@@ -59,34 +68,28 @@ public class Stampante {
 
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		try {
-			ImmagineVettoriale immagine1=new ImmagineVettoriale(2);
-			ColorRGB colore1=new ColorRGB(24,25,26);
-			Rettangolo rett1=new Rettangolo(colore1, 4, 5);
-			immagine1.aggiungiForma(rett1);
-			ColorRGB colore2=new ColorRGB(25,26,27);
-			Quadrato quadrato1=new Quadrato(colore2,2);
-			immagine1.aggiungiForma(quadrato1);
+		
+		ImmagineVettoriale immagine1=new ImmagineVettoriale(2);
+		immagine1.aggiungiForma(new Rettangolo(new ColorRGB(24,25,26), 4, 5));			
+		immagine1.aggiungiForma(new Quadrato(new ColorRGB(25,26,27),2));
 			
 			
-			double[] livelliIniziali= {1200,1300,1300};
-			Stampante stamp=new Stampante(immagine1,livelliIniziali);
-			
-			stamp.fornireLivelloCartucce();
-			stamp.stampaImmagine();
-			stamp.fornireLivelloCartucce();
-			
-			immagine1.stampaImmagine();
-			immagine1.percentualeColoriPrimari();
-		}catch(ColoreInsufficenteException e) {
-			System.out.println("Inserisci altro colore\n");
+		double[] livelliIniziali= {1100,1300,1300};
+		Stampante stamp=new Stampante(immagine1,livelliIniziali);
+		try{
+			stamp=new Stampante(immagine1,livelliIniziali);
 			
 		}catch(IllegalArgumentException e) {
 			System.out.println("Inserisci un Vettore di double di 3 elementi\n");
+			return;
 		}
-		// RICORDA DI METTERE IL TRY CATCH 
 		
-	}
+		System.out.println("Ciao\n\n\n");
+		stamp.fornireLivelloCartucce();
+		stamp.stampaImmagine();
+		stamp.fornireLivelloCartucce();
 
+		immagine1.stampaImmagine();
+		immagine1.percentualeColoriPrimari();
+	}
 }
