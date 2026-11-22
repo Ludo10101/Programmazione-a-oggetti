@@ -1,0 +1,19 @@
+﻿Esercizio: Gestione di un "Magazzino di Quadrati"
+Vogliamo creare una classe che gestisca una collezione di oggetti di tipo Quadrato per fare alcune analisi geometriche su di essi. 
+Requisiti
+    1. Usa la tua classe Quadrato (quella con lato, x, y, costruttore, area(), perimetro(), getter e setter). 
+    2. Crea una nuova classe GestoreQuadrati con le seguenti caratteristiche:
+        ◦ Attributo privato: un array di oggetti Quadrato (es. private Quadrato[] elenchiQuadrati;). 
+        ◦ Costruttore: accetta come parametro un array di oggetti Quadrato e lo assegna all'attributo della classe. 
+    3. Aggiungi i seguenti metodi alla classe GestoreQuadrati:
+        ◦ public double sommaAree(): scorre l'array con un ciclo e restituisce la somma delle aree di tutti i quadrati presenti.
+        ◦ public Quadrato getQuadratoPiuGrande(): scorre l'array e restituisce l'oggetto Quadrato che ha l'area maggiore. (Suggerimento: puoi usare una variabile di supporto per memorizzare il quadrato con l'area massima trovata finora). 
+        ◦ public int contaQuadratiConAreaMaggioreDi(double soglia): conta e restituisce quanti quadrati nell'array hanno un'area strettamente maggiore del valore soglia passato come parametro.
+    4. Metodo main di prova (puoi metterlo in GestoreQuadrati o in una classe Main separata): 
+        ◦ Crea un array di 4 o 5 oggetti Quadrato con lati e coordinate a tua scelta. 
+        ◦ Istanzia un oggetto GestoreQuadrati passandogli l'array creato.
+        ◦ Stampa a schermo:
+            1. La somma totale delle aree.
+            2. Il lato e il centro $(x, y)$ del quadrato più grande trovato. 
+            3. Quanti quadrati superano una certa area di soglia scelta da te.
+

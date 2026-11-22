@@ -1,0 +1,39 @@
+﻿Scenario: Gestione di un Parco Auto (Veicoli & Noleggio)
+Devi modellare il sistema di gestione del parco veicoli di un'agenzia di noleggio.
+1. Classe Veicolo
+Rappresenta un singolo autoveicolo dell'agenzia.
+    • Attributi privati:
+        ◦ targa (Stringa, es. "AB123CD")
+        ◦ marca (Stringa, es. "Fiat")
+        ◦ modello (Stringa, es. "Panda")
+        ◦ prezzoGiornaliero (double, es. 45.0)
+        ◦ noleggiato (boolean: true se l'auto è attualmente occupata, false se è libera in parcheggio)
+    • Costruttore: Inizializza targa, marca, modello e prezzo giornaliero. L'auto parte sempre disponibile (noleggiato = false).
+    • Metodi:
+        ◦ Getter per tutti gli attributi e Setter opportuni (es. per aggiornare il prezzoGiornaliero).
+        ◦ noleggia(): Se l'auto è disponibile, la imposta come noleggiata (noleggiato = true) e restituisce true. Se era già noleggiata, restituisce false.
+        ◦ restituisci(): Se l'auto era noleggiata, la imposta come disponibile (noleggiato = false) e restituisce true. Sec era già in parcheggio, restituisce false.
+2. Classe ParcoAuto
+Rappresenta l'intera flotta dell'agenzia.
+    • Attributi privati:
+        ◦ nomeAgenzia (Stringa)
+        ◦ flotta (Array di oggetti Veicolo[])
+        ◦ numeroVeicoli (int, per tracciare quanti veicoli sono registrati)
+    • Costruttore: Riceve il nomeAgenzia e la capacitaMassima del parcheggio, inizializzando l'array.
+    • Metodi:
+        ◦ aggiungiVeicolo(Veicolo v): Inserisce un nuovo veicolo se c'è spazio e se la targa non è già presente. Restituisce true se inserito con successo, false altrimenti.
+        ◦ cercaPerTarga(String targa): Scorre la flotta e restituisce l'oggetto Veicolo con quella targa, oppure null se non esiste.
+        ◦ noleggiaVeicolo(String targa): Cerca l'auto per targa; se la trova ed è disponibile, invoca il suo metodo noleggia() e restituisce true. Gestisci con cura l'eventuale null.
+        ◦ calcolaPrezzoMedioDisponibili(): Calcola e restituisce il prezzo medio giornaliero esclusivamente dei veicoli attualmente disponibili (noleggiato == false). Se non ci sono veicoli disponibili, restituisce 0.0.
+        ◦ filtraPerMarca(String marca): Scorre i veicoli registrati e restituisce un nuovo array di Veicolo[] contenente solo i veicoli di quella specifica marca (attenzione a dimensionare correttamente l'array restituito o a gestirne la dimensione!).
+3. Classe Main (Classe di Test)
+Nel main esegui la seguente sequenza:
+    1. Crea almeno 4 veicoli (es. due "Fiat", una "BMW", una "Ford").
+    2. Crea un ParcoAuto con capacità massima 10 e aggiungi i veicoli.
+    3. Effettua il noleggio di una delle auto tramite la sua targa.
+    4. Calcola e stampa a schermo il prezzo medio giornaliero delle auto rimaste disponibili.
+    5. Invoca filtraPerMarca("Fiat") e stampa a schermo i modelli di tutte le Fiat trovate nel parco.
+🎯 Sfida di Progettazione OOP:
+    • Attenzione al metodo filtraPerMarca: Come crei l'array da restituire? Puoi prima contare quante auto di quella marca ci sono per istanziare un array di dimensione esatta, oppure allocare un array grande e riempirlo. Pensaci bene!
+    • Incapsulamento e deleghe: Tieni la logica delle operazioni dentro le rispettive classi ed evita ogni System.out.println nei modelli.
+
